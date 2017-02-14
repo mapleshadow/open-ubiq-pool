@@ -35,12 +35,12 @@ type PayoutsConfig struct {
 
 func (self PayoutsConfig) GasHex() string {
 	x := common.String2Big(self.Gas)
-	return common.BigToHash(x).Hex()
+	return hexutil.EncodeBig(x)
 }
 
 func (self PayoutsConfig) GasPriceHex() string {
 	x := common.String2Big(self.GasPrice)
-	return common.BigToHash(x).Hex()
+	return hexutil.EncodeBig(x)
 }
 
 type PayoutsProcessor struct {
@@ -177,7 +177,7 @@ func (u *PayoutsProcessor) process() {
 			break
 		}
 
-		value := common.BigToHash(amountInWei).Hex()
+		value := hexutil.EncodeBig(amountInWei)
 		txHash, err := u.rpc.SendTransaction(u.config.Address, login, u.config.GasHex(), u.config.GasPriceHex(), value, u.config.AutoGas)
 		if err != nil {
 			log.Printf("Failed to send payment to %s, %v Shannon: %v. Check outgoing tx for %s in block explorer and docs/PAYOUTS.md",
