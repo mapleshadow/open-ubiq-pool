@@ -1,25 +1,66 @@
 <div class="container">
   <div class="page-header">
-    <h1>Features</h1>
+    <h1>How To Mine</h1>
   </div>
 
-  <h3>Start Bundle</h3>
+  <div class="page-header">
+    <h1>With
+    <a href="https://github.com/ethereum/webthree-umbrella/releases" rel="nofollow" target="_blank"> ethminer:</a></h1> <br/>
+<code>{{config.HttpHost}}:{{config.HttpPort}}/YOUR_ELE_ADDRESS/RIG_ID</code>
+  <dl class="dl-horizontal">
+    <dt>YOUR_ELE_ADDRESS</dt>
+    <dd>This is your address for payouts, generate one with geth, or mine directly to exchange like
+      <a href="http://poloniex.com" rel="nofollow" target="_blank">Poloniex</a>
+      or <a href="http://bittrex.com" rel="nofollow" target="_blank">Bittrex</a>.<br/>
+      <strong>Example:</strong> <code>0xb85150eb365e7df0941f0cf08235f987ba91506a</code>.
+    </dd>
+    <dt>RIG_ID</dt>
+    <dd>
+      ID of your farm to distinguish it from your other rig. If you have just one rig, feel free to omit this param.
+      This param must be short alphanumeric string with optional dashes and underscores.<br/>
+      <strong>Example:</strong> <code>rig-1</code>
+    </dd>
+  </dl>
   <p>
-   All you need to start mining:  <a href="http://ethteam.com/download/EtcStartBundle.zip"  target="_blank">EtcStartBundle.zip</a> 
+    <strong>Full example:</strong>
+    <code>ethminer -F {{config.HttpHost}}:{{config.HttpPort}}/YOUR_ELE_ADDRESS/myfarm -G --farm-recheck 200</code>.<br/>
+    <span class="label label-info">Hint:</span> If you are compiling ethminer from latest source, please also use
+      extra <code>--disable-submit-hashrate</code> option.
+  </p>
+  </div>
+
+  <div class="page-header">
+  <h1>To mine with Stratum Mining with Stratum Proxy for Ethereum</h1>
+  <p class="lead">Grab proxy from <a href="https://github.com/Atrides/eth-proxy" re="nofollow" target="_blank">eth-proxy GitHub repo</a>.</p>
+  <p class="lead">Edit <code>eth-proxy.conf</code> and specify our pool's <code>HOST: {{config.StratumHost}}</code>, <code>PORT: {{config.StratumPort}}</code> and your <code>WALLET</code>.</p>
+
+  <h4>Mining with Ether-Proxy</h4>
+  <p class="lead">Use stable release of <a href="https://github.com/sammy007/ether-proxy/releases" target="_blank">Ethereum Solo/Pool Mining Proxy</a>.</p>
+
+  </div>
+
+  <div class="page-header">
+<h1>To mine with
+    <a href="https://bitcointalk.org/index.php?topic=1433925.0" rel="nofollow" target="_blank">claymore:</a> </h1><br/>
+ 
+
+<strong>Full example:</strong> <br/>
+
+SET GPU_FORCE_64BIT_PTR 0 <br/>
+SET GPU_MAX_HEAP_SIZE 100 <br/>
+SET GPU_USE_SYNC_OBJECTS 1 <br/>
+SET GPU_MAX_ALLOC_PERCENT 100 <br/>
+SET GPU_SINGLE_ALLOC_PERCENT 100 <br/>
+./ethdcrminer64 -epool {{config.StratumHost}}:{{config.StratumPort}} -ewal YOUR_ELE_ADDRESS -epsw x -eworker RIG_ID -esm 0 -mode 1 -ethi -16384 -erate 1 -wd 1 -allcoins 1 -tt 72 -ttli 78 -tstop 82
+
+  </div>
+
+  <h4>Advice</h4>
+  <p>CPU mining is not recommended.</p>
+  <h4>Terms of Service</h4>
+  <p>By using the pool you accept all possible risks related to experimental software usage.<br/>
+     Pool owner can't compensate any irreversible losses, but will do his best to prevent worst case.
   </p>
 
-  <h3>Personal payout threshold</h3>
-  <p>
-   To set the payout threshold level you have to <a href="/#/about">contact</a> me with our desire amount, account id and miner ip address.
-  </p>
 
-  <h3>Notification</h3>
-  <p>
-   For offline miner and payout notification you can use the Telegram bot:  <a href="https://web.telegram.org/#/im?p=@EtcTeam_bot"  target="_blank">@EtcTeam</a>
-  </p>
-
-  <h3>PPLNS block reward</h3>
-  <p>
-   There is no way to cheat the pool.
-  </p>
-</div>
+  </div>
