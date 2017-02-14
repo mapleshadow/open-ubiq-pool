@@ -1,4 +1,4 @@
-## Open Source Ethereum Classic Mining Pool
+## Open Source Elementrem Pool Sexy
 
 ![Miner's stats page](https://s22.postimg.io/4rb17sqfl/2016_08_27_12_13_25_Fotos.png)
 
