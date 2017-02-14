@@ -6,9 +6,9 @@
   <div class="page-header">
     <h1>With
     <a href="https://github.com/ethereum/webthree-umbrella/releases" rel="nofollow" target="_blank"> ethminer:</a></h1> <br/>
-<code>{{config.HttpHost}}:{{config.HttpPort}}/YOUR_ELE_ADDRESS/RIG_ID</code>
+<code>{{config.HttpHost}}:{{config.HttpPort}}/YOUR_UBQ_ADDRESS/RIG_ID</code>
   <dl class="dl-horizontal">
-    <dt>YOUR_ELE_ADDRESS</dt>
+    <dt>YOUR_UBQ_ADDRESS</dt>
     <dd>This is your address for payouts, generate one with geth, or mine directly to exchange like
       <a href="http://poloniex.com" rel="nofollow" target="_blank">Poloniex</a>
       or <a href="http://bittrex.com" rel="nofollow" target="_blank">Bittrex</a>.<br/>
@@ -23,7 +23,7 @@
   </dl>
   <p>
     <strong>Full example:</strong>
-    <code>ethminer -F {{config.HttpHost}}:{{config.HttpPort}}/YOUR_ELE_ADDRESS/myfarm -G --farm-recheck 200</code>.<br/>
+    <code>ethminer -F {{config.HttpHost}}:{{config.HttpPort}}/YOUR_UBQ_ADDRESS/myfarm -G --farm-recheck 200</code>.<br/>
     <span class="label label-info">Hint:</span> If you are compiling ethminer from latest source, please also use
       extra <code>--disable-submit-hashrate</code> option.
   </p>
