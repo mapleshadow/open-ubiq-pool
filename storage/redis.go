@@ -10,7 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"gopkg.in/redis.v3"
 
-	"github.com/feeleep75/open-ethereum-pool/util"
+	"github.com/sammy007/open-ethereum-pool/util"
 )
 
 type Config struct {
@@ -23,7 +23,6 @@ type Config struct {
 type RedisClient struct {
 	client *redis.Client
 	prefix string
-    pplns int64
 }
 type SumRewardData struct {
 	Interval       int64    `json:"inverval"`
@@ -93,14 +92,14 @@ type Worker struct {
 	TotalHR int64 `json:"hr2"`
 }
 
-func NewRedisClient(cfg *Config, prefix string, pplns int64) *RedisClient {
+func NewRedisClient(cfg *Config, prefix string) *RedisClient {
 	client := redis.NewClient(&redis.Options{
 		Addr:     cfg.Endpoint,
 		Password: cfg.Password,
 		DB:       cfg.Database,
 		PoolSize: cfg.PoolSize,
 	})
-	return &RedisClient{client: client, prefix: prefix, pplns: pplns}
+	return &RedisClient{client: client, prefix: prefix}
 }
 
 func (r *RedisClient) Client() *redis.Client {
@@ -227,7 +226,7 @@ func (r *RedisClient) WriteBlock(login, id string, params []string, diff, roundD
 		tx.HIncrBy(r.formatKey("miners", login), "blocksFound", 1)
 		tx.HGetAllMap(r.formatKey("shares", "roundCurrent"))
 		tx.Del(r.formatKey("shares", "roundCurrent"))
-		tx.LRange(r.formatKey("lastshares"), 0, r.pplns)
+		tx.LRange(r.formatKey("lastshares"), 0, 999)
 		return nil
 	})
 	if err != nil {
@@ -269,7 +268,7 @@ func (r *RedisClient) WriteBlock(login, id string, params []string, diff, roundD
 
 func (r *RedisClient) writeShare(tx *redis.Multi, ms, ts int64, login, id string, diff int64, expire time.Duration) {
 	tx.LPush(r.formatKey("lastshares"), login)
-	tx.LTrim(r.formatKey("lastshares"), 0, r.pplns)
+	tx.LTrim(r.formatKey("lastshares"), 0, 999)
 
 	tx.HIncrBy(r.formatKey("shares", "roundCurrent"), login, diff)
 	tx.ZAdd(r.formatKey("hashrate"), redis.Z{Score: float64(ts), Member: join(diff, login, id, ms)})
@@ -814,7 +813,7 @@ func (r *RedisClient) CollectWorkersStats(sWindow, lWindow time.Duration, login 
 	cmds, err := tx.Exec(func() error {
 		tx.ZRemRangeByScore(r.formatKey("hashrate", login), "-inf", fmt.Sprint("(", now-largeWindow))
 		tx.ZRangeWithScores(r.formatKey("hashrate", login), 0, -1)
-		tx.LRange(r.formatKey("lastshares"), 0, r.pplns)
+		tx.LRange(r.formatKey("lastshares"), 0, 999)
 		tx.ZRevRangeWithScores(r.formatKey("rewards", login), 0, 39)
 		tx.ZRevRangeWithScores(r.formatKey("rewards", login), 0, -1)
 		return nil
