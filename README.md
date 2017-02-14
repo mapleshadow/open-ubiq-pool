@@ -6,7 +6,7 @@
 
 Pools running with this fork: [EthTeam.com](http://www.ethteam.com)
 
-[List Of Open Ethereum Pools](https://github.com/wariner84/open-ethereum-pool/wiki/List-Of-Open-Pools)
+[List Of Open Ethereum Pools](https://github.com/sammy007/open-ethereum-pool/wiki/List-Of-Open-Pools)
 
 ### Features
 
